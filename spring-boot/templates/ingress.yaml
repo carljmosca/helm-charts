@@ -8,7 +8,7 @@ apiVersion: extensions/v1beta1
 {{- end }}
 kind: Ingress
 metadata:
-  name: {{ $fullName }}
+  name: {{ include "spring-boot.fullname" . }}
   labels:
     {{- include "spring-boot.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
@@ -28,14 +28,12 @@ spec:
 {{- end }}
   rules:
   {{- range .Values.ingress.hosts }}
-    - host: {{ .host | quote }}
+    - host: {{ .host }}
       http:
         paths:
-        {{- range .paths }}
-          - path: {{ . }}
-            backend:
-              serviceName: {{ $fullName }}
-              servicePort: {{ $svcPort }}
-        {{- end }}
+        - path: /
+          backend:
+            serviceName: {{ $fullName }} 
+            servicePort: {{ $svcPort }}
   {{- end }}
-{{- end }}
+{{- end }}    
