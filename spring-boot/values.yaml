@@ -45,10 +45,7 @@ ingress:
     # kubernetes.io/tls-acme: "true"
   hosts:
     - host: carljmosca.usw1.kubesail.org
-      paths:
-      - backend:
-          serviceName: spring-boot
-          servicePort: 8080
+      paths: [/]
   tls:
     - secretName: carljmosca-usw1-kubesail-org
       hosts:
